@@ -209,7 +209,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 		
 		$data = [
 		    'replyToken' => $reply_token,
-		    'messages' => [$get_flex_api]
+		    'messages' => $get_flex_api
 		];
 
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
