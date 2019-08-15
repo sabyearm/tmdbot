@@ -193,7 +193,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$data = [
 		    'replyToken' => $reply_token,
 		    //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] 
-		    'messages' => [['type' => 'text', 'text' => $text ]] Debug Detail message
+		    'messages' => [['type' => 'text', 'text' => $text ]] //Debug Detail message
 		];
 		/*
         	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
