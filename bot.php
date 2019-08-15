@@ -205,7 +205,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		*/
-        	$get_flex_api = main_flex($input_message['title'] , $input_message['address'] , $forecast_data);
+        	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
 		
 		$data = [
 		    'replyToken' => $reply_token,
