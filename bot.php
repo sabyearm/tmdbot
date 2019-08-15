@@ -74,16 +74,19 @@ function create_content($dat , $mode){
 }
 
 function main_flex($Location_name , $Location_address , $fdata){
-
+    $flex_main = (object)null;
+    $flex_main->type="flex";
+    $flex_main->altText="Hello Flex Message";
+    $flex_main->contents = (object)null;
     $flex = (object)null;
-    $flex->type = "bubble";
-    $flex->styles = (object)null;
-        $flex->styles->footer = (object)null;
-            $flex->styles->footer->separator = true;
-    $flex->body = (object)null;
-        $flex->body->type = "box";
-        $flex->body->layout = "vertical";
-        $flex->body->contents = array();
+    $flex_main->contents->type = "bubble";
+    $flex_main->contents->styles = (object)null;
+        $flex_main->contents->styles->footer = (object)null;
+            $flex_main->contents->styles->footer->separator = true;
+    $flex_main->contents->body = (object)null;
+        $flex_main->contents->body->type = "box";
+        $flex_main->contents->body->layout = "vertical";
+        $flex_main->contents->body->contents = array();
             // Forecast_Header
             $Forecast_Header = (object)null;
             $Forecast_Header->type = "text";
@@ -91,7 +94,7 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Header->weight = "bold";
             $Forecast_Header->color = "#1DB446";
             $Forecast_Header->size = 'sm';
-            array_push($flex->body->contents , $Forecast_Header);
+            array_push($flex_main->contents->body->contents , $Forecast_Header);
             // Forecast_Location
             $Forecast_Location = (object)null;
             $Forecast_Location->type = "text";
@@ -99,7 +102,7 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Location->weight = "bold";
             $Forecast_Location->size = "xxl";
             $Forecast_Location->margin = "md";
-            array_push($flex->body->contents , $Forecast_Location);
+            array_push($flex_main->contents->body->contents , $Forecast_Location);
 
             // Forecast_Address
             $Forecast_Address = (object)null;
@@ -108,13 +111,13 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Address->color = "#aaaaaa";
             $Forecast_Address->size = "xs";
             $Forecast_Address->wrap = true;
-            array_push($flex->body->contents , $Forecast_Address);
+            array_push($flex_main->contents->body->contents , $Forecast_Address);
 
             # Seperator
             $seperator = (object)null;
             $seperator->type = "separator";
             $seperator->margin = "xxl";
-            array_push($flex->body->contents , $seperator);
+            array_push($flex_main->contents->body->contents , $seperator);
 
             $body_content = (object)null;
             $body_content->type = "box";
@@ -132,9 +135,9 @@ function main_flex($Location_name , $Location_address , $fdata){
                 array_push($body_content->contents ,create_content($Rain , 'drain'));
                 array_push($body_content->contents ,create_content('' , ''));
             }
-            array_push($flex->body->contents , $body_content);
+            array_push($flex_main->contents->body->contents , $body_content);
 
-        return $flex;
+        return $flex_main;
 }
 
 function get_api_tmd($lat , $lon){
@@ -204,12 +207,6 @@ if ( sizeof($request_array['events']) > 0 ) {
 		
         	$get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
 		$json_encoding = json_encode($get_flex_api);
-		$flex_data = substr($json_encoding,1,strlen($json_encoding)-1);
-		$jsonFlex = [
-			"type" => "flex",
-			"altText" => "Hello Flex Message",
-			"contents" => [$flex_data]
-		];
 		
 		$data = [
 		    'replyToken' => $reply_token,
