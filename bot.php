@@ -90,10 +90,10 @@ function main_flex($Location_name , $Location_address , $fdata){
             // Forecast_Header
             $Forecast_Header = (object)null;
             $Forecast_Header->type = "text";
-            $Forecast_Header->text = "ผลพยากรณ์อากาศ WRF-TMD กรมอุตุนิยมวิทยา";
+            $Forecast_Header->text = "กรมอุตุนิยมวิทยา กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม";
             $Forecast_Header->weight = "bold";
             $Forecast_Header->color = "#1DB446";
-            $Forecast_Header->size = 'sm';
+            $Forecast_Header->size = 'xs';
             array_push($flex_main->contents->body->contents , $Forecast_Header);
             // Forecast_Location
             $Forecast_Location = (object)null;
@@ -101,7 +101,7 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Location->text = $Location_name;
             $Forecast_Location->weight = "bold";
             $Forecast_Location->size = "xxl";
-            $Forecast_Location->margin = "md";
+            $Forecast_Location->margin = "sm";
             array_push($flex_main->contents->body->contents , $Forecast_Location);
 
             // Forecast_Address
@@ -109,7 +109,7 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Address->type = "text";
             $Forecast_Address->text = $Location_address;
             $Forecast_Address->color = "#aaaaaa";
-            $Forecast_Address->size = "xs";
+            $Forecast_Address->size = "sm";
             $Forecast_Address->wrap = true;
             array_push($flex_main->contents->body->contents , $Forecast_Address);
 
@@ -189,21 +189,20 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$latitude = $input_message['latitude'];
 		$longitude = $input_message['longitude'];
 		$forecast_data = ((get_api_tmd($latitude , $longitude))->WeatherForecasts)[0]->forecasts;
-		$text =utf8_encode($input_message['address']);
-		$data = [
+		$local_address =utf8_encode($input_message['address']);
+		/*$data = [
 		    'replyToken' => $reply_token,
 		    //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] Debug Detail message
 		    'messages' => [['type' => 'text', 'text' => $text ]] 
 		];
-		/*
-        	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
+		*/
+        	$get_flex_api = main_flex('ผลพยากรณ์อากาศ WRF-TMD' , $local_address , $forecast_data);
 		
 		$data = [
 		    'replyToken' => $reply_token,
 		    'messages' => [$get_flex_api]
 		];
 		
-		*/
 	}
 	else{
 		$data = [
