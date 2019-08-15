@@ -90,7 +90,7 @@ function main_flex($Location_name , $Location_address , $fdata){
             // Forecast_Header
             $Forecast_Header = (object)null;
             $Forecast_Header->type = "text";
-            $Forecast_Header->text = "ผลพยากรณ์อากาศ";
+            $Forecast_Header->text = "ผลพยากรณ์อากาศ WRF-TMD กรมอุตุนิยมวิทยา";
             $Forecast_Header->weight = "bold";
             $Forecast_Header->color = "#1DB446";
             $Forecast_Header->size = 'sm';
@@ -205,7 +205,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		*/
-        	$get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
+        	$get_flex_api = main_flex($input_message['title'] , $input_message['address'] , $forecast_data);
 		
 		$data = [
 		    'replyToken' => $reply_token,
