@@ -3,7 +3,7 @@ function get_api_tmd($lat , $lon){
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://data.tmd.go.th/nwpapi/v1/forecast/location/hourly/at?lat=".$lat."&lon=".$lon."&fields=tc,rain&hour=8&duration=5",
+  CURLOPT_URL => "https://data.tmd.go.th/nwpapi/v1/forecast/location/hourly/at?lat=".$lat."&lon=".$lon."&fields=tc,rain&hour=8&duration=2",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -20,7 +20,7 @@ $response = curl_exec($curl);
 $err = curl_error($curl);
 
 curl_close($curl);
-return $response;
+return json_decode($response);
 }
 
 $API_URL = 'https://api.line.me/v2/bot/message';
@@ -47,8 +47,15 @@ if ( sizeof($request_array['events']) > 0 ) {
 	if($input_message['type']=='location'){
 		$latitude = $input_message['latitude'];
 		$longitude = $input_message['longitude'];
-		$forecast_data = get_api_tmd($latitude , $longitude);
-		$text = $forecast_data['forecast']['time'].$forecast_data['forecast']['data']['tc'].$forecast_data['forecast']['data']['rain'];
+		$forecast_data = ((get_api_tmd($latitude , $longitude))->WeatherForecasts)[0]->forecasts;
+		$text = '';
+		for($i=0 ; $i<sizeof($forecast_data) ; $i++){
+			$ts = $forecast_data[$i]->time;
+			$data = $forecast_data[$i]->data;
+			$Temp = $data->tc;
+			$Rain = $data->rain;
+			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
+		}
 		$data = [
 		    'replyToken' => $reply_token,
 		    // 'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  Debug Detail message
