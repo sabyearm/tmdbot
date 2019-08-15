@@ -57,7 +57,7 @@ function create_content($dtime , $temp , $rain ){
         array_push($Rain_contents->contents , $Rain_contents_detail);
 
     $Seperator = (object)null;
-    $Seperator->type = "seperator";
+    $Seperator->type = "separator";
     $Seperator->margin = "xxl";
 
     $return_array = array();
@@ -74,7 +74,7 @@ function main_flex($Location_name , $Location_address , $fdata){
 
     $flex = (object)null;
     $flex->type = "bubble";
-    $flex->style = (object)null;
+    $flex->styles = (object)null;
         $flex->style->footer = (object)null;
             $flex->style->footer->separator = true;
     $flex->body = (object)null;
@@ -109,7 +109,7 @@ function main_flex($Location_name , $Location_address , $fdata){
 
             # Seperator
             $seperator = (object)null;
-            $seperator->type = "seperator";
+            $seperator->type = "separator";
             $seperator->margin = "xxl";
             array_push($flex->body->contents , $seperator);
 
