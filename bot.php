@@ -93,14 +93,14 @@ function main_flex($Location_name , $Location_address , $fdata){
             $Forecast_Header->text = "กรมอุตุนิยมวิทยา กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม";
             $Forecast_Header->weight = "bold";
             $Forecast_Header->color = "#1DB446";
-            $Forecast_Header->size = 'xs';
+            $Forecast_Header->size = 'xxs';
             array_push($flex_main->contents->body->contents , $Forecast_Header);
             // Forecast_Location
             $Forecast_Location = (object)null;
             $Forecast_Location->type = "text";
             $Forecast_Location->text = $Location_name;
             $Forecast_Location->weight = "bold";
-            $Forecast_Location->size = "xxl";
+            $Forecast_Location->size = "md";
             $Forecast_Location->margin = "sm";
             array_push($flex_main->contents->body->contents , $Forecast_Location);
 
@@ -189,7 +189,8 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$latitude = $input_message['latitude'];
 		$longitude = $input_message['longitude'];
 		$forecast_data = ((get_api_tmd($latitude , $longitude))->WeatherForecasts)[0]->forecasts;
-		$local_address =utf8_encode($input_message['address']);
+		//$local_address =utf8_encode($input_message['address']);
+		$local_address = $input_message['address'];
 		/*$data = [
 		    'replyToken' => $reply_token,
 		    //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] Debug Detail message
