@@ -197,24 +197,24 @@ if ( sizeof($request_array['events']) > 0 ) {
 			$Rain = $data->rain;
 			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
         	}
-		/*$data = [
-			    'replyToken' => $reply_token,
-			    // 'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  Debug Detail message
-			    'messages' => [['type' => 'text', 'text' => $text ]]
-			];
+		$data = [
+		    'replyToken' => $reply_token,
+		    'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  Debug Detail message
+		    //'messages' => [['type' => 'text', 'text' => $text ]]
+		];
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
-		*/
+		/*
         	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
 		
 		$data = [
 		    'replyToken' => $reply_token,
 		    'messages' => [$get_flex_api]
 		];
-
 		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
 		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		
+		*/
 	
 		
 	}
