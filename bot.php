@@ -189,21 +189,11 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$latitude = $input_message['latitude'];
 		$longitude = $input_message['longitude'];
 		$forecast_data = ((get_api_tmd($latitude , $longitude))->WeatherForecasts)[0]->forecasts;
-		$text = '';
-		for($i=0 ; $i<sizeof($forecast_data) ; $i++){
-			$ts = $forecast_data[$i]->time;
-			$data = $forecast_data[$i]->data;
-			$Temp = $data->tc;
-			$Rain = $data->rain;
-			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
-        	}
 		$data = [
 		    'replyToken' => $reply_token,
-		    'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  //Debug Detail message
-		    //'messages' => [['type' => 'text', 'text' => $text ]]
+		    'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] 
+		    //'messages' => [['type' => 'text', 'text' => $text ]] Debug Detail message
 		];
-		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		/*
         	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
 		
@@ -211,12 +201,8 @@ if ( sizeof($request_array['events']) > 0 ) {
 		    'replyToken' => $reply_token,
 		    'messages' => [$get_flex_api]
 		];
-		$post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-		$send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		
 		*/
-	
-		
 	}
 	else{
 		$data = [
