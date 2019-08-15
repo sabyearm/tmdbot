@@ -24,14 +24,14 @@ function create_content($dtime , $temp , $rain ){
         $Temp_contents_main->text = "อุณหภูมิ";
         $Temp_contents_main->size = "sm";
         $Temp_contents_main->color = "#555555";
-        $Temp_contents_main->flex = 0
+        $Temp_contents_main->flex = 0;
 
         $Temp_contents_detail = (object)null;
         $Temp_contents_detail->type = "text";
         $Temp_contents_detail->text = $temp." °C";
         $Temp_contents_detail->size = "sm";
         $Temp_contents_detail->color = "#111111";
-        $Temp_contents_detail->align = "end"
+        $Temp_contents_detail->align = "end";
         array_push($Temp_contents->contents , $Temp_contents_main);
         array_push($Temp_contents->contents , $Temp_contents_detail);
 
@@ -70,7 +70,7 @@ function create_content($dtime , $temp , $rain ){
 
 }
 
-function main_flex($Location_name =, $Location_address , $fdata){
+function main_flex($Location_name , $Location_address , $fdata){
 
     $flex = (object)null;
     $flex->type = "bubble";
@@ -118,7 +118,7 @@ function main_flex($Location_name =, $Location_address , $fdata){
             $body_content->layout = "vertical";
             $body_content->margin = "xxl";
             $body_content->spacing = "sm";
-            $body_content->contents = array()
+            $body_content->contents = array();
             for($i = 0 ; $i < sizeof($fdata) ; $i++){
                 $ts = $fdata[$i]->time;
                 $data = $fdata[$i]->data;
