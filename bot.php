@@ -206,7 +206,7 @@ if ( sizeof($request_array['events']) > 0 ) {
             'messages' => [$jsonFlex]
         ];
         
-        $post_body = json_encode($data, JSON_UNESCAPED_UNICODE)ว
+        $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
         $send_result = send_reply_message($API_URL.'/reply', $POST_HEADER, $post_body);
 		
 	$data = [
