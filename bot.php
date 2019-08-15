@@ -188,7 +188,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 			$Rain = $data->rain;
 			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
         }
-        $get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
+        //$get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
 		$data = [
 		    'replyToken' => $reply_token,
 		    // 'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  Debug Detail message
