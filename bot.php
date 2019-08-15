@@ -1,7 +1,7 @@
 <?php
 
 
-function create_content($dtime = "Time" , $temp = "Temp" , $rain = "Rain"){
+function create_content($dtime , $temp , $rain ){
 
     $dtime_contents = (object)null;
     $dtime_contents->type = "box";
@@ -70,7 +70,7 @@ function create_content($dtime = "Time" , $temp = "Temp" , $rain = "Rain"){
 
 }
 
-function main_flex($Location_name = '' , $Location_address = '' , $data){
+function main_flex($Location_name =, $Location_address , $fdata){
 
     $flex = (object)null;
     $flex->type = "bubble";
@@ -119,9 +119,9 @@ function main_flex($Location_name = '' , $Location_address = '' , $data){
             $body_content->margin = "xxl";
             $body_content->spacing = "sm";
             $body_content->contents = array()
-            for($i = 0 ; $i < sizeof($data) ; $i++){
-                $ts = $forecast_data[$i]->time;
-                $data = $forecast_data[$i]->data;
+            for($i = 0 ; $i < sizeof($fdata) ; $i++){
+                $ts = $fdata[$i]->time;
+                $data = $fdata[$i]->data;
                 $Temp = $data->tc;
                 $Rain = $data->rain;
                 array_push($body_content->contents ,create_content($ts , $Temp , $Rain));
@@ -188,7 +188,7 @@ if ( sizeof($request_array['events']) > 0 ) {
 			$Rain = $data->rain;
 			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
         }
-        //$get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
+        $get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
 		$data = [
 		    'replyToken' => $reply_token,
 		    // 'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]]  Debug Detail message
