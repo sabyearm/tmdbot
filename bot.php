@@ -195,10 +195,15 @@ if ( sizeof($request_array['events']) > 0 ) {
 			$text .=  'เวลา'.$ts.'\nอุณหภูมิ = '.$ts.'องศาเซลเซียส\nปริมาณฝน = '.$Rain.'mm\n----------\n';
         }
         $get_flex_api = main_flex('Location' , 'Address' , $forecast_data);
-		
+	$jsonFlex = [
+	"type" => "flex",
+	"altText" => "Hello Flex Message",
+	"contents" => [$get_flex_api]
+	];
+
         $data = [
             'replyToken' => $reply_token,
-            'messages' => [$get_flex_api]
+            'messages' => [$jsonFlex]
         ];
         
         $post_body = json_encode($data, JSON_UNESCAPED_UNICODE)ว
