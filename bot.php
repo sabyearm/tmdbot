@@ -87,14 +87,6 @@ function main_flex($Location_name , $Location_address , $fdata){
         $flex_main->contents->body->type = "box";
         $flex_main->contents->body->layout = "vertical";
         $flex_main->contents->body->contents = array();
-            // Forecast_Header
-            $Forecast_Header = (object)null;
-            $Forecast_Header->type = "text";
-            $Forecast_Header->text = "กรมอุตุนิยมวิทยา กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม";
-            $Forecast_Header->weight = "bold";
-            $Forecast_Header->color = "#1DB446";
-            $Forecast_Header->size = 'xxs';
-            array_push($flex_main->contents->body->contents , $Forecast_Header);
             // Forecast_Location
             $Forecast_Location = (object)null;
             $Forecast_Location->type = "text";
@@ -136,7 +128,14 @@ function main_flex($Location_name , $Location_address , $fdata){
                 array_push($body_content->contents ,create_content('' , ''));
             }
             array_push($flex_main->contents->body->contents , $body_content);
-
+            // Forecast_Header
+            $Forecast_Header = (object)null;
+            $Forecast_Header->type = "text";
+            $Forecast_Header->text = "กรมอุตุนิยมวิทยา กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม";
+            $Forecast_Header->weight = "bold";
+            $Forecast_Header->color = "#1DB446";
+            $Forecast_Header->size = 'xxs';
+            array_push($flex_main->contents->body->contents , $Forecast_Header);
         return $flex_main;
 }
 
@@ -144,7 +143,7 @@ function get_api_tmd($lat , $lon){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://data.tmd.go.th/nwpapi/v1/forecast/location/hourly/at?lat=".$lat."&lon=".$lon."&fields=tc,rain&hour=8&duration=2",
+    CURLOPT_URL => "https://data.tmd.go.th/nwpapi/v1/forecast/location/hourly/at?lat=".$lat."&lon=".$lon."&fields=tc,rain&duration=5",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
