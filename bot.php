@@ -189,11 +189,11 @@ if ( sizeof($request_array['events']) > 0 ) {
 		$latitude = $input_message['latitude'];
 		$longitude = $input_message['longitude'];
 		$forecast_data = ((get_api_tmd($latitude , $longitude))->WeatherForecasts)[0]->forecasts;
-		$text = $input_message['address'];
+		$text =utf8_encode($input_message['address']);
 		$data = [
 		    'replyToken' => $reply_token,
-		    //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] 
-		    'messages' => [['type' => 'text', 'text' => $text ]] //Debug Detail message
+		    //'messages' => [['type' => 'text', 'text' => json_encode($request_array) ]] Debug Detail message
+		    'messages' => [['type' => 'text', 'text' => $text ]] 
 		];
 		/*
         	$get_flex_api = main_flex('' , $input_message['address'] , $forecast_data);
