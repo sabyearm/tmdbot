@@ -1,72 +1,75 @@
 <?php
 
 
-function create_content($dtime , $temp , $rain ){
+function create_content($dat , $mode){
+	
+	if($mode == 'dtime'){
+    $cont = (object)null;
+    $cont->contents = array();
+	$sub_cont = (object)null;
+    $cont->type = "box";
+    $cont->layout = "horizontal";
+        $sub_cont->type = "text";
+        $sub_cont->text = $dat;
+        $sub_cont->size = "sm";
+        $sub_cont->color = "#555555";
+        $sub_cont->flex = 0;
+        array_push($cont->contents , $sub_cont);
+	}
+	
+	elseif($mode == 'dtemp'){
+    $cont = (object)null;
+    $cont->contents = array();
+	$sub_cont = (object)null;
+    $cont->type = "box";
+    $cont->layout = "horizontal";
+        $sub_cont->type = "text";
+        $sub_cont->text = "อุณหภูมิ";
+        $sub_cont->size = "sm";
+        $sub_cont->color = "#555555";
+        $sub_cont->flex = 0;
 
-    $dtime_contents = (object)null;
-    $dtime_contents->type = "box";
-    $dtime_contents->layout = "horizontal";
-    $dtime_contents->contents = array();
-        $sub_dtime = (object)null;
-        $sub_dtime->type = "text";
-        $sub_dtime->text = $dtime;
-        $sub_dtime->size = "sm";
-        $sub_dtime->color = "#555555";
-        $sub_dtime->flex = 0;
-        array_push($dtime_contents->contents , $sub_dtime);
-
-    $Temp_contents = (object)null;
-    $Temp_contents->type = "box";
-    $Temp_contents->layout = "horizontal";
-    $Temp_contents->contents = array();
-        $Temp_contents_main = (object)null;
-        $Temp_contents_main->type = "text";
-        $Temp_contents_main->text = "อุณหภูมิ";
-        $Temp_contents_main->size = "sm";
-        $Temp_contents_main->color = "#555555";
-        $Temp_contents_main->flex = 0;
-
-        $Temp_contents_detail = (object)null;
-        $Temp_contents_detail->type = "text";
-        $Temp_contents_detail->text = $temp." °C";
-        $Temp_contents_detail->size = "sm";
-        $Temp_contents_detail->color = "#111111";
-        $Temp_contents_detail->align = "end";
-        array_push($Temp_contents->contents , $Temp_contents_main);
-        array_push($Temp_contents->contents , $Temp_contents_detail);
+        $sub_cont_detail = (object)null;
+        $sub_cont_detail->type = "text";
+        $sub_cont_detail->text = $dat." °C";
+        $sub_cont_detail->size = "sm";
+        $sub_cont_detail->color = "#111111";
+        $sub_cont_detail->align = "end";	
+        array_push($cont->contents , $sub_cont);
+        array_push($cont->contents , $sub_cont_detail);
+	}
 
 
-    $Rain_contents = (object)null;
-    $Rain_contents->type = "box";
-    $Rain_contents->layout = "horizontal";
-    $Rain_contents->contents = array();
-        $Rain_contents_main = (object)null;
-        $Rain_contents_main->type = "text";
-        $Rain_contents_main->text = "ปริมาณฝน";
-        $Rain_contents_main->size = "sm";
-        $Rain_contents_main->color = "#555555";
-        $Rain_contents_main->flex = 0;
+	elseif($mode == 'drain'){
+    $cont = (object)null;
+    $cont->contents = array();
+	$sub_cont = (object)null;
+    $cont->type = "box";
+    $cont->layout = "horizontal";
+        $sub_cont->type = "text";
+        $sub_cont->text = "ปริมาณฝน";
+        $sub_cont->size = "sm";
+        $sub_cont->color = "#555555";
+        $sub_cont->flex = 0;
 
-        $Rain_contents_detail = (object)null;
-        $Rain_contents_detail->type = "text";
-        $Rain_contents_detail->text = $rain." mm.";
-        $Rain_contents_detail->size = "sm";
-        $Rain_contents_detail->color = "#111111";
-        $Rain_contents_detail->align = "end";
-        array_push($Rain_contents->contents , $Rain_contents_main);
-        array_push($Rain_contents->contents , $Rain_contents_detail);
+        $sub_cont_detail = (object)null;
+        $sub_cont_detail->type = "text";
+        $sub_cont_detail->text = $dat." mm.";
+        $sub_cont_detail->size = "sm";
+        $sub_cont_detail->color = "#111111";
+        $sub_cont_detail->align = "end";
+        array_push($cont->contents , $sub_cont);
+        array_push($cont->contents , $sub_cont_detail);
 
-    $Seperator = (object)null;
-    $Seperator->type = "separator";
-    $Seperator->margin = "xxl";
+	}
+	else{
+		$cont = (object)null;
+		$cont->type = "separator";
+		$cont->margin = "xxl";
+	}
 
-    $return_array = array();
-    array_push($return_array , $dtime_contents);
-    array_push($return_array , $Temp_contents);
-    array_push($return_array , $Rain_contents);
-    array_push($return_array , $Seperator);
 
-    return $return_array;
+    return $cont;
 
 }
 
@@ -75,8 +78,8 @@ function main_flex($Location_name , $Location_address , $fdata){
     $flex = (object)null;
     $flex->type = "bubble";
     $flex->styles = (object)null;
-        $flex->style->footer = (object)null;
-            $flex->style->footer->separator = true;
+        $flex->styles->footer = (object)null;
+            $flex->styles->footer->separator = true;
     $flex->body = (object)null;
         $flex->body->type = "box";
         $flex->body->layout = "vertical";
@@ -124,7 +127,10 @@ function main_flex($Location_name , $Location_address , $fdata){
                 $data = $fdata[$i]->data;
                 $Temp = $data->tc;
                 $Rain = $data->rain;
-                array_push($body_content->contents ,create_content($ts , $Temp , $Rain));
+                array_push($body_content->contents ,create_content($ts ,'dtime'));
+                array_push($body_content->contents ,create_content($Temp , 'dtemp'));
+                array_push($body_content->contents ,create_content($Rain , 'drain'));
+                array_push($body_content->contents ,create_content('' , ''));
             }
             array_push($flex->body->contents , $body_content);
 
